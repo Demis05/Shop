@@ -1,68 +1,43 @@
 package com.exadel.fedorov.domain;
 
+import lombok.Data;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Data
+@Entity
+@Table(name = "products")
 public class Product {
 
+    @Id
+    @GeneratedValue
     private Long id;
     private String title;
     private String name;
     private Integer cost;
-    private Integer categoryId;
+
+    public Product() {
+    }
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "category_id")
+    private ProductType productType;
+
+    @Column(name = "manufacturer_id")
     private Integer manufacturerId;
 
-    public Product(Long id, String title, String name, Integer cost, Integer categoryId, Integer manufacturerId) {
+    public Product(Long id, String title, String name, Integer cost, ProductType productType, Integer manufacturerId) {
         this.id = id;
         this.title = title;
         this.name = name;
         this.cost = cost;
-        this.categoryId = categoryId;
-        this.manufacturerId = manufacturerId;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getCost() {
-        return cost;
-    }
-
-    public void setCost(Integer cost) {
-        this.cost = cost;
-    }
-
-    public Integer getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public Integer getManufacturerId() {
-        return manufacturerId;
-    }
-
-    public void setManufacturerId(Integer manufacturerId) {
+        this.productType = productType;
         this.manufacturerId = manufacturerId;
     }
 }
