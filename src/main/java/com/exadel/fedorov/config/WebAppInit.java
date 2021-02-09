@@ -1,4 +1,4 @@
-package com.exadel.fedorov;
+package com.exadel.fedorov.config;
 
 import com.exadel.fedorov.config.WebMvcConfig;
 import org.springframework.web.WebApplicationInitializer;

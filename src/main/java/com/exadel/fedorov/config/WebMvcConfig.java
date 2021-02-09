@@ -9,7 +9,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = "com.exadel.fedorov")
+@ComponentScan("com.exadel.fedorov")
 public class WebMvcConfig {
 
     @Bean(name = "viewResolver")
@@ -19,5 +19,4 @@ public class WebMvcConfig {
         viewResolver.setSuffix(".jsp");
         return viewResolver;
     }
-
 }
