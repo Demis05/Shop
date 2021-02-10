@@ -52,14 +52,14 @@ public class ProductController {
         product.setTitle(title);
         product.setName(name);
         product.setCost(cost);
-        product.setProductType(ProductType.valueOf(type));
+        product.setType(ProductType.valueOf(type));
         product.setManufacturerId(manufacturerId);
         productService.save(product);
         return new ModelAndView("index");
     }
 
 
-    @PutMapping
+    @PutMapping("/edit")
     public ModelAndView updateProductById(
             @PathVariable("id") Long id,
             @RequestParam(value = "title", required = false) String title,

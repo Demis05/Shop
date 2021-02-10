@@ -22,22 +22,22 @@ public class Product {
     private String name;
     private Integer cost;
 
-    public Product() {
-    }
-
     @Enumerated(EnumType.STRING)
-    @Column(name = "category_id")
-    private ProductType productType;
+    @Column(name = "type")
+    private ProductType type;
 
     @Column(name = "manufacturer_id")
     private Integer manufacturerId;
+
+    public Product() {
+    }
 
     public Product(Long id, String title, String name, Integer cost, ProductType productType, Integer manufacturerId) {
         this.id = id;
         this.title = title;
         this.name = name;
         this.cost = cost;
-        this.productType = productType;
+        this.type = productType;
         this.manufacturerId = manufacturerId;
     }
 }

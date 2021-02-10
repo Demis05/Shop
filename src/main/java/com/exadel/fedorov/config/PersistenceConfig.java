@@ -1,8 +1,11 @@
 package com.exadel.fedorov.config;
 
+import com.exadel.fedorov.domain.Product;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Environment;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
@@ -10,11 +13,11 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
-import java.util.Properties;
 
+@ComponentScan("com.exadel.fedorov")
 @Configuration
 @EnableTransactionManagement
-public class HibernateConfig {
+public class PersistenceConfig {
 
     @Bean(name = "dataSource")
     public DataSource getDataSource() {
@@ -26,12 +29,12 @@ public class HibernateConfig {
         return dataSource;
     }
 
+    @Autowired
     @Bean(name = "sessionFactory")
-    public SessionFactory getSessionFactory() {
-        LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(getDataSource());
-        sessionBuilder.scanPackages("com.exadel.fedorov.domain");
-        sessionBuilder.setProperties(getHibernateProperties());
-
+    public SessionFactory getSessionFactory(DataSource dataSource) {
+        LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(dataSource);
+        sessionBuilder.addAnnotatedClasses(Product.class);
+        sessionBuilder.setProperty(Environment.DIALECT, "org.hibernate.dialect.PostgreSQLDialect");
         return sessionBuilder.buildSessionFactory();
     }
 
@@ -39,13 +42,5 @@ public class HibernateConfig {
     public HibernateTransactionManager getTransactionManager(
             SessionFactory sessionFactory) {
         return new HibernateTransactionManager(sessionFactory);
-    }
-
-    private Properties getHibernateProperties() {//TODO
-        Properties properties = new Properties();
-        properties.put(Environment.SHOW_SQL, "true");
-        properties.put(Environment.DIALECT, "org.hibernate.dialect.PostgreSQLDialect");
-        properties.put(Environment.HBM2DDL_AUTO, "update");
-        return properties;
     }
 }

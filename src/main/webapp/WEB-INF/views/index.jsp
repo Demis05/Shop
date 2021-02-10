@@ -23,7 +23,7 @@
             <th>Title</th>
             <th>Name</th>
             <th>Cost</th>
-            <th>Category</th>
+            <th>Type</th>
             <th>Manufacturer</th>
         </tr>
         <c:forEach items="${products}" var="product">
@@ -32,11 +32,11 @@
             <td>${product.title}</td>
             <td>${product.name}</td>
             <td>${product.cost}</td>
-            <td>${product.categoryId}</td>
+            <td>${product.type}</td>
             <td>${product.manufacturerId}</td>
             <td>
-                <a href="/edit?id=${customer.id}">Edit</a>
-                <a href="/delete?id=${customer.id}">Delete</a>
+                <a href="/edit?id=${product.id}">Edit</a>
+                <a href="/delete?id=${product.id}">Delete</a>
             </td>
         </tr>
         </c:forEach>

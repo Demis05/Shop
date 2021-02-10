@@ -1,7 +1,7 @@
 package com.exadel.fedorov.repository;
 
 import com.exadel.fedorov.domain.Product;
-import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -24,14 +24,14 @@ public class ProductDAO {
         this.sessionFactory = sessionFactory;
     }
 
-    public Product getProductById(long id) {//TODO
-        String hql = "from products where id=" + id;
-        Query query = sessionFactory.getCurrentSession().createQuery(hql);
-        @SuppressWarnings("unchecked")
-        List<Product> listUser = (List<Product>) query.getResultList();
-        if (listUser != null && !listUser.isEmpty()) {
-            return listUser.get(0);
-        }
+    public Product getProductById(long id) {
+//        String hql = "from products where id=" + id;
+//        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+//        @SuppressWarnings("unchecked")
+//        List<Product> listUser = (List<Product>) query.getResultList();
+//        if (listUser != null && !listUser.isEmpty()) {
+//            return listUser.get(0);
+//        }
         return null;
     }
 
@@ -49,12 +49,12 @@ public class ProductDAO {
         sessionFactory.getCurrentSession().delete(product);
     }
 
-    public List<Product> list() {//TODO
-        @SuppressWarnings("unchecked")
-        List<Product> listUser = (List<Product>) sessionFactory.getCurrentSession()
-                .createCriteria(Product.class)
-                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-        return listUser;
+    public List<Product> list() {
+        Session session = sessionFactory.getCurrentSession();
+        List<Product> list = session.createCriteria(Product.class).list();
+
+//        return session.createQuery("SELECT * FROM products", Product.class).getResultList();
+    return list;
     }
 
 }
