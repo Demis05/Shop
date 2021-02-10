@@ -35,6 +35,11 @@
             <td>${product.type}</td>
             <td>${product.manufacturerId}</td>
             <td>
+
+            <form id="edit" action="edit" method="PUT">
+                <button>EDIT</button>
+            </form>
+
                 <a href="/edit?id=${product.id}">Edit</a>
                 <a href="/delete?id=${product.id}">Delete</a>
             </td>

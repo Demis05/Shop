@@ -35,6 +35,7 @@ public class PersistenceConfig {
         LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(dataSource);
         sessionBuilder.addAnnotatedClasses(Product.class);
         sessionBuilder.setProperty(Environment.DIALECT, "org.hibernate.dialect.PostgreSQLDialect");
+        sessionBuilder.setProperty(Environment.HBM2DDL_AUTO, "update");
         return sessionBuilder.buildSessionFactory();
     }
 

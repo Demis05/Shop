@@ -6,6 +6,7 @@ import com.exadel.fedorov.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -59,6 +60,22 @@ public class ProductController {
     }
 
 
+    @RequestMapping("/edit")
+    public ModelAndView editProductForm(@RequestParam long id) {
+        ModelAndView mav = new ModelAndView("edit_product");
+        Product product = productService.getProductById(id);
+        mav.addObject("product", product);
+        return mav;
+    }
+
+
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public String saveProduct(@ModelAttribute("product") Product product) {
+        System.out.println(product);
+        productService.update(product);
+        return "redirect:/products/";
+    }
+
     @PutMapping("/edit")
     public ModelAndView updateProductById(
             @PathVariable("id") Long id,
@@ -67,7 +84,6 @@ public class ProductController {
             @RequestParam(value = "cost", required = false) Integer cost,
             @RequestParam(value = "type", required = false) String type,
             @RequestParam(value = "manufacturerId", required = false) Integer manufacturerId
-
     ) {
         Product product = new Product(id, title, name, cost, ProductType.valueOf(type), manufacturerId);
         productService.update(product);
