@@ -24,13 +24,11 @@ public class ProductDAO {
     }
 
     public Product getProductById(long id) {
-        Session session = sessionFactory.getCurrentSession();
-        return session.get(Product.class, id);
+        return sessionFactory.getCurrentSession().get(Product.class, id);
     }
 
     public void update(Product product) {
-        Session session = sessionFactory.getCurrentSession();
-        session.saveOrUpdate(product);
+        sessionFactory.getCurrentSession().saveOrUpdate(product);
     }
 
     public void save(Product product) {
@@ -44,8 +42,7 @@ public class ProductDAO {
     }
 
     public List<Product> list() {
-        Session session = sessionFactory.getCurrentSession();
-        return session.createCriteria(Product.class).list();
+        return sessionFactory.getCurrentSession().createCriteria(Product.class).list();
     }
 }
 

@@ -4,8 +4,8 @@
         <html>
 
         <head>
-            <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-            <title>New Product</title>
+            <%@ include file="jspf/header.jspf" %>
+                <title>New Product</title>
         </head>
 
         <body>

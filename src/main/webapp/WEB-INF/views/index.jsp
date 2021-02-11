@@ -7,8 +7,8 @@
         <html>
 
         <head>
-            <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-            <title>Products</title>
+            <%@ include file="jspf/header.jspf" %>
+                <title>Products</title>
         </head>
 
         <body>
