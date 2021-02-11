@@ -5,6 +5,7 @@ import com.exadel.fedorov.domain.ProductType;
 import com.exadel.fedorov.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping("/products")
 @Controller
@@ -24,6 +26,15 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
+    @GetMapping(value = "/{id}")
+    public ModelAndView getProductById(@PathVariable("id") Long productId) {
+        Product product = productService.getProductById(productId);
+        ModelAndView mav = new ModelAndView("index");
+        mav.addObject("product", product);
+        return mav;
+    }
+
+    //GET ALL
     @GetMapping
     public ModelAndView getProducts() {
         List<Product> products = productService.getProducts();
@@ -32,13 +43,39 @@ public class ProductController {
         return mav;
     }
 
-    @GetMapping(value = "/{id}")
-    public ModelAndView getProductById(@PathVariable("id") Long productId) {
-        Product product = productService.getProductById(productId);
-        ModelAndView mav = new ModelAndView("index");
+    //OPEN NEW PAGE
+    @GetMapping("/new")
+    public String newProductForm(Map<String, Object> model) {
+        Product product = new Product();
+        model.put("product", product);
+        return "new_product";
+    }
+
+    //SAVE
+    @PostMapping(value = "/save")
+    public String saveProduct(@ModelAttribute("product") Product product) {
+        System.out.println(product);
+        productService.update(product);
+        return "redirect:/products/";
+    }
+
+    //OPEN EDIT PAGE
+    @GetMapping("/edit")
+    public ModelAndView editProductForm(@RequestParam long id) {
+        ModelAndView mav = new ModelAndView("edit_product");
+        Product product = productService.getProductById(id);
         mav.addObject("product", product);
         return mav;
     }
+
+    //DELETE
+    @RequestMapping("/delete")
+    public String deleteCustomerForm(@RequestParam long id) {
+        productService.delete(id);
+        return "redirect:/products/";
+    }
+
+
 
     @PostMapping
     public ModelAndView createProduct(
@@ -60,22 +97,6 @@ public class ProductController {
     }
 
 
-    @RequestMapping("/edit")
-    public ModelAndView editProductForm(@RequestParam long id) {
-        ModelAndView mav = new ModelAndView("edit_product");
-        Product product = productService.getProductById(id);
-        mav.addObject("product", product);
-        return mav;
-    }
-
-
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String saveProduct(@ModelAttribute("product") Product product) {
-        System.out.println(product);
-        productService.update(product);
-        return "redirect:/products/";
-    }
-
     @PutMapping("/edit")
     public ModelAndView updateProductById(
             @PathVariable("id") Long id,
@@ -85,11 +106,11 @@ public class ProductController {
             @RequestParam(value = "type", required = false) String type,
             @RequestParam(value = "manufacturerId", required = false) Integer manufacturerId
     ) {
+
         Product product = new Product(id, title, name, cost, ProductType.valueOf(type), manufacturerId);
         productService.update(product);
         ModelAndView mav = new ModelAndView("index");
         mav.addObject("product", product);
-
 
         return mav;
     }

@@ -5,20 +5,14 @@
 
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-            <title>Edit Product</title>
+            <title>New Product</title>
         </head>
 
         <body>
             <div align="center">
-                <h2>Edit Product</h2>
+                <h2>New Product</h2>
                 <form:form action="save" method="post" modelAttribute="product">
                     <table border="0" cellpadding="5">
-                        <tr>
-                            <td>ID: </td>
-                            <td>${product.id}
-                                <form:hidden path="id" />
-                            </td>
-                        </tr>
                         <tr>
                             <td>Name: </td>
                             <td>
@@ -39,14 +33,14 @@
                         </tr>
                         <tr>
                             <td>Type: </td>
-                            <td>${product.type}
-                                <form:hidden path="type" />
+                            <td>
+                                <form:input path="type" />
                             </td>
                         </tr>
                         <tr>
                             <td>Manufacturer id: </td>
-                            <td>${product.manufacturerId}
-                                <form:hidden path="manufacturerId" />
+                            <td>
+                                <form:input path="manufacturerId" />
                             </td>
                         </tr>
                         <tr>
