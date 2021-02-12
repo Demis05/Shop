@@ -10,16 +10,19 @@ import javax.persistence.Table;
 
 @Data
 @Entity
-@Table(name = "manufacturers")
-public class Manufacturer {
+@Table(name = "brands")
+public class Brand {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String brand;
+    private String name;
 
-    public Manufacturer(Long id, String brand) {
+    public Brand() {
+    }
+
+    public Brand(Long id, String brand) {
         this.id = id;
-        this.brand = brand;
+        this.name = brand;
     }
 }

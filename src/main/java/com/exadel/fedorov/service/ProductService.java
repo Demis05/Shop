@@ -1,6 +1,7 @@
 package com.exadel.fedorov.service;
 
 import com.exadel.fedorov.domain.Product;
+import com.exadel.fedorov.dto.ProductDto;
 import com.exadel.fedorov.repository.ProductDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

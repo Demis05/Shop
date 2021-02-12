@@ -30,19 +30,19 @@ public class Product {
     @Column(name = "type")
     private ProductType type;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "manufacturer_id")
-    private Manufacturer manufacturer;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
 
     public Product() {
     }
 
-    public Product(Long id, String title, String name, Integer cost, ProductType productType, Manufacturer manufacturer) {
+    public Product(Long id, String title, String name, Integer cost, ProductType productType, Brand brand) {
         this.id = id;
         this.title = title;
         this.name = name;
         this.cost = cost;
         this.type = productType;
-        this.manufacturer = manufacturer;
+        this.brand = brand;
     }
 }

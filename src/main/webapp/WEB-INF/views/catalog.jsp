@@ -14,11 +14,12 @@
         <body>
             <div align="center">
                 <h2>Products</h2>
-                <form method="get" action="search">
-                    <input type="text" name="keyword" />
+                <form method="get" action="/products/search">
+                    <input type="text" name="productId" />
                     <input type="submit" value="Search" />
                 </form>
-                <h3><a href="/products/new">New Product</a></h3>
+
+                <h3><a href="/products/creating">New Product</a></h3>
                 <table border="1" cellpadding="5">
                     <tr>
                         <th>ID</th>
@@ -26,7 +27,7 @@
                         <th>Name</th>
                         <th>Cost</th>
                         <th>Type</th>
-                        <th>Manufacturer</th>
+                        <th>Brand</th>
                     </tr>
                     <c:forEach items="${products}" var="product">
                         <tr>
@@ -35,9 +36,9 @@
                             <td>${product.name}</td>
                             <td>${product.cost}</td>
                             <td>${product.type}</td>
-                            <td>${product.manufacturerId}</td>
+                            <td>${product.brand}</td>
                             <td>
-                                <a href="/products/edit?id=${product.id}">Edit</a>
+                                <a href="/products/editing?id=${product.id}">Edit</a>
                                 <a href="/products/delete?id=${product.id}">Delete</a>
                             </td>
                         </tr>

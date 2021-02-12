@@ -11,7 +11,7 @@
         <body>
             <div align="center">
                 <h2>Edit Product</h2>
-                <form:form action="save" method="post" modelAttribute="product">
+                <form:form action="update" method="post" modelAttribute="product">
                     <table border="0" cellpadding="5">
                         <tr>
                             <td>ID: </td>
@@ -44,9 +44,9 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Manufacturer id: </td>
-                            <td>${product.manufacturerId}
-                                <form:hidden path="manufacturerId" />
+                            <td>Brand : </td>
+                            <td>${product.brand}
+                                <form:hidden path="brand" />
                             </td>
                         </tr>
                         <tr>

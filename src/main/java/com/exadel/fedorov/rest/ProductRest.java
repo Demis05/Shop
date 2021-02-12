@@ -1,12 +1,13 @@
 package com.exadel.fedorov.rest;
 
 
+import com.exadel.fedorov.domain.Brand;
 import com.exadel.fedorov.domain.Product;
+import com.exadel.fedorov.domain.ProductType;
 import com.exadel.fedorov.dto.ProductDto;
 import com.exadel.fedorov.service.ProductService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -61,43 +62,49 @@ public class ProductRest {
 
     @PostMapping
     public ResponseEntity<Product> saveProduct(@RequestBody ProductDto productDto) {
-        HttpHeaders headers = new HttpHeaders();
-        if (productDto == null) {
+        Product product = convertToDomain(productDto);
+        if (product == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        productService.save(convertToDomain(productDto));
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+        productService.save(product);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<ProductDto> updateProduct(@PathVariable("id") Long id, @RequestBody ProductDto productDto) {
-        HttpHeaders headers = new HttpHeaders();
-        if (productDto == null) {
+        Product product = convertToDomain(productDto);
+        if (product == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
-        productService.update(convertToDomain(productDto));
-        return new ResponseEntity<>(productDto, headers, HttpStatus.OK);
+        productService.update(product);
+        return new ResponseEntity<>(productDto, HttpStatus.OK);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Product> deleteProduct(@PathVariable("id") Long id) {//TODO Может поменять на войд и добавить респонс статус анот
-        Product product = productService.getProductById(id);
-
-        if (Objects.isNull(product)) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public void deleteProduct(@PathVariable("id") Long id) {
         productService.delete(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 
     private ProductDto convertToDto(Product product) {
-        return modelMapper.map(product, ProductDto.class);
+        ProductDto productDto = new ProductDto();
+        productDto.setBrand(product.getBrand().getName());
+        productDto.setId(product.getId());
+        productDto.setType(product.getType().name());
+        productDto.setTitle(product.getTitle());
+        productDto.setCost(product.getCost());
+        productDto.setName(product.getName());
+        return productDto;
     }
 
     private Product convertToDomain(ProductDto productDto) {
-        return modelMapper.map(productDto, Product.class);
+        Product product = new Product();
+        product.setCost(productDto.getCost());
+        product.setName(productDto.getName());
+        product.setTitle(productDto.getTitle());
+        product.setType(ProductType.valueOf(productDto.getType()));
+        product.setBrand(new Brand(0L, productDto.getBrand()));
+        return product;
     }
 }
 

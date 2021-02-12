@@ -1,5 +1,6 @@
 package com.exadel.fedorov.config;
 
+import com.exadel.fedorov.domain.Brand;
 import com.exadel.fedorov.domain.Product;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Environment;
@@ -34,6 +35,7 @@ public class PersistenceConfig {
     public SessionFactory getSessionFactory(DataSource dataSource) {
         LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(dataSource);
         sessionBuilder.addAnnotatedClasses(Product.class);
+        sessionBuilder.addAnnotatedClasses(Brand.class);
         sessionBuilder.setProperty(Environment.DIALECT, "org.hibernate.dialect.PostgreSQLDialect");
         sessionBuilder.setProperty(Environment.HBM2DDL_AUTO, "update");
         return sessionBuilder.buildSessionFactory();

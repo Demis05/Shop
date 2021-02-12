@@ -11,36 +11,36 @@
         <body>
             <div align="center">
                 <h2>New Product</h2>
-                <form:form action="save" method="post" modelAttribute="product">
+                <form:form action="create" method="post" modelAttribute="product">
                     <table border="0" cellpadding="5">
                         <tr>
-                            <td>Name: </td>
+                            <td>Name : </td>
                             <td>
                                 <form:input path="name" />
                             </td>
                         </tr>
                         <tr>
-                            <td>Title: </td>
+                            <td>Title : </td>
                             <td>
                                 <form:input path="title" />
                             </td>
                         </tr>
                         <tr>
-                            <td>Cost: </td>
+                            <td>Cost : </td>
                             <td>
                                 <form:input path="cost" />
                             </td>
                         </tr>
                         <tr>
-                            <td>Type: </td>
+                            <td>Type : </td>
                             <td>
                                 <form:input path="type" />
                             </td>
                         </tr>
                         <tr>
-                            <td>Manufacturer id: </td>
+                            <td>Brand : </td>
                             <td>
-                                <form:input path="manufacturerId" />
+                                <form:input path="brand" />
                             </td>
                         </tr>
                         <tr>
