@@ -1,7 +1,6 @@
 package com.exadel.fedorov.repository;
 
 import com.exadel.fedorov.domain.Product;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

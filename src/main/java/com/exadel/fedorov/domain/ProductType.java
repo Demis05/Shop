@@ -9,17 +9,17 @@ public enum ProductType {
     LAPTOP("laptop"),
     MONO_BLOCK("mono_block");
 
-    private final String name;
+    private final String category;
 
-    ProductType(String name) {
-        this.name = name;
+    ProductType(String category) {
+        this.category = category;
     }
 
     public static List<ProductType> getProductTypes() {
         return Arrays.asList(values());
     }
 
-    public String getName() {
-        return name;
+    public String getCategory() {
+        return category;
     }
 }

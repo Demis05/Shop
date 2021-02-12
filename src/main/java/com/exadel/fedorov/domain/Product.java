@@ -6,9 +6,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Data
@@ -27,18 +30,19 @@ public class Product {
     @Column(name = "type")
     private ProductType type;
 
-    @Column(name = "manufacturer_id")
-    private Integer manufacturerId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "manufacturer_id")
+    private Manufacturer manufacturer;
 
     public Product() {
     }
 
-    public Product(Long id, String title, String name, Integer cost, ProductType productType, Integer manufacturerId) {
+    public Product(Long id, String title, String name, Integer cost, ProductType productType, Manufacturer manufacturer) {
         this.id = id;
         this.title = title;
         this.name = name;
         this.cost = cost;
         this.type = productType;
-        this.manufacturerId = manufacturerId;
+        this.manufacturer = manufacturer;
     }
 }
