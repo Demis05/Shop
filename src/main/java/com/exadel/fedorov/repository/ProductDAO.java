@@ -2,8 +2,10 @@ package com.exadel.fedorov.repository;
 
 import com.exadel.fedorov.domain.Brand;
 import com.exadel.fedorov.domain.Product;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -33,20 +35,22 @@ public class ProductDAO {
 
     public void update(Product product) {
         Session session = sessionFactory.getCurrentSession();
-        String brandName = product.getBrand().getName();
-        List<Brand> brands = sessionFactory.getCurrentSession().createCriteria(Brand.class).list();
-        for (Brand b : brands) {
-            if (b.getName().equals(brandName)) {
-                product.getBrand().setId(b.getId());
-                break;
-            }
-        }
+        Criteria criteria = session.createCriteria(Brand.class);
+        Brand brand = (Brand) criteria.add(Restrictions.eq("name", product.getBrand().getName()))
+                .uniqueResult();
+        product.setBrand(brand);
         session.evict(product);
-        sessionFactory.getCurrentSession().saveOrUpdate(product);
+        session.update(product);
     }
 
     public void save(Product product) {
-        sessionFactory.getCurrentSession().save(product);
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Brand.class);
+        Brand brand = (Brand) criteria.add(Restrictions.eq("name", product.getBrand().getName()))
+                .uniqueResult();
+        product.setBrand(brand);
+        session.persist(product);
+        session.save(product);
     }
 
     public void delete(long id) {

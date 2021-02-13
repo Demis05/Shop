@@ -81,6 +81,7 @@ public class ProductController {
     @PostMapping(value = "/update")
     public String updateProduct(@ModelAttribute("product") ProductDto productDto) {
         Product product = convertToDomain(productDto);
+        product.setId(productDto.getId());
         productService.update(product);
         return "redirect:/products/";
     }
@@ -109,7 +110,7 @@ public class ProductController {
         product.setName(productDto.getName());
         product.setTitle(productDto.getTitle());
         product.setType(ProductType.valueOf(productDto.getType()));
-        product.setBrand(new Brand(0L, productDto.getBrand()));
+        product.setBrand(new Brand(productDto.getBrand()));
         return product;//return modelMapper.map(productDto, Product.class);
     }
 }

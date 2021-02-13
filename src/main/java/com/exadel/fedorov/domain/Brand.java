@@ -21,6 +21,10 @@ public class Brand {
     public Brand() {
     }
 
+    public Brand(String name) {
+        this.name = name;
+    }
+
     public Brand(Long id, String brand) {
         this.id = id;
         this.name = brand;

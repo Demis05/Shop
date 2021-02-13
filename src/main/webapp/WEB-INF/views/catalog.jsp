@@ -20,7 +20,7 @@
                 </form>
 
                 <h3><a href="/products/creating">New Product</a></h3>
-                <table border="1" cellpadding="5">
+                <table border="1" cellpadding="5"  height="25"width="40%">
                     <tr>
                         <th>ID</th>
                         <th>Title</th>
