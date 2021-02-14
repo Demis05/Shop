@@ -94,22 +94,11 @@ public class ProductController {
     }
 
     private ProductDto convertToDto(Product product) {
-        ProductDto productDto = new ProductDto();
-        productDto.setBrand(product.getBrand().getName());
-        productDto.setId(product.getId());
-        productDto.setType(product.getType().name());
-        productDto.setTitle(product.getTitle());
-        productDto.setCost(product.getCost());
-        productDto.setName(product.getName());
-        return productDto;
+        return modelMapper.map(product, ProductDto.class);
     }
 
     private Product convertToDomain(ProductDto productDto) {
-        Product product = new Product();
-        product.setCost(productDto.getCost());
-        product.setName(productDto.getName());
-        product.setTitle(productDto.getTitle());
-        product.setType(ProductType.valueOf(productDto.getType()));
+        Product product = modelMapper.map(productDto, Product.class);
         product.setBrand(new Brand(productDto.getBrand()));
         return product;
     }
