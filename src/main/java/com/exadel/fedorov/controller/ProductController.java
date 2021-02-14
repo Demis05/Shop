@@ -101,7 +101,7 @@ public class ProductController {
         productDto.setTitle(product.getTitle());
         productDto.setCost(product.getCost());
         productDto.setName(product.getName());
-        return productDto;//        return modelMapper.map(product, ProductDto.class);
+        return productDto;
     }
 
     private Product convertToDomain(ProductDto productDto) {
@@ -111,6 +111,6 @@ public class ProductController {
         product.setTitle(productDto.getTitle());
         product.setType(ProductType.valueOf(productDto.getType()));
         product.setBrand(new Brand(productDto.getBrand()));
-        return product;//return modelMapper.map(productDto, Product.class);
+        return product;
     }
 }
