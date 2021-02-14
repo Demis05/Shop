@@ -1,11 +1,10 @@
 package com.exadel.fedorov.rest;
 
-
 import com.exadel.fedorov.domain.Brand;
 import com.exadel.fedorov.domain.Product;
-import com.exadel.fedorov.domain.ProductType;
 import com.exadel.fedorov.dto.ProductDto;
 import com.exadel.fedorov.service.ProductService;
+import io.swagger.annotations.Api;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,16 +16,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@Api(value = "/rest/products/")
 @RequestMapping("/rest/products/")
 @RestController
 public class ProductRest {
@@ -70,7 +67,7 @@ public class ProductRest {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         productService.save(product);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/{id}")
@@ -89,24 +86,14 @@ public class ProductRest {
         productService.delete(id);
     }
 
+
     private ProductDto convertToDto(Product product) {
-        ProductDto productDto = new ProductDto();
-        productDto.setBrand(product.getBrand().getName());
-        productDto.setId(product.getId());
-        productDto.setType(product.getType().name());
-        productDto.setTitle(product.getTitle());
-        productDto.setCost(product.getCost());
-        productDto.setName(product.getName());
-        return productDto;
+        return modelMapper.map(product, ProductDto.class);
     }
 
     private Product convertToDomain(ProductDto productDto) {
-        Product product = new Product();
-        product.setCost(productDto.getCost());
-        product.setName(productDto.getName());
-        product.setTitle(productDto.getTitle());
-        product.setType(ProductType.valueOf(productDto.getType()));
-        product.setBrand(new Brand(0L, productDto.getBrand()));
+        Product product = modelMapper.map(productDto, Product.class);
+        product.setBrand(new Brand(productDto.getBrand()));
         return product;
     }
 }
