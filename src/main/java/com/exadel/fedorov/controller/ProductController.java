@@ -2,7 +2,6 @@ package com.exadel.fedorov.controller;
 
 import com.exadel.fedorov.domain.Brand;
 import com.exadel.fedorov.domain.Product;
-import com.exadel.fedorov.domain.ProductType;
 import com.exadel.fedorov.dto.ProductDto;
 import com.exadel.fedorov.service.ProductService;
 import org.modelmapper.ModelMapper;
@@ -28,7 +27,7 @@ public class ProductController {
     private ModelMapper modelMapper;
 
     @Autowired
-    ProductService productService;
+    private ProductService productService;
 
     //OPEN NEW PAGE
     @GetMapping("/creating")
