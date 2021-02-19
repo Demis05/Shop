@@ -1,16 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<!DOCTYPE html>
+<html lang="java">
 
-        <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01
-    Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-        <html>
-
-        <head>
-            <%@ include file="jspf/header.jspf" %>
-                <title>Products</title>
-        </head>
-
+    <head>
+        <%@ include file="jspf/header.jspf" %>
+        <title>Products</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://sdk.amazonaws.com/js/aws-sdk-2.847.0.min.js"></script>
+        <script src="js/s3Image.js"></script>
+    </head>
         <body>
             <div align="center">
                 <h2>Products</h2>
@@ -28,6 +28,7 @@
                         <th>Cost</th>
                         <th>Type</th>
                         <th>Brand</th>
+                        <th>Image</th>
                     </tr>
                     <c:forEach items="${products}" var="product">
                         <tr>
@@ -38,6 +39,11 @@
                             <td>${product.type}</td>
                             <td>${product.brand}</td>
                             <td>
+                                <script>
+                                testing(${product.imagePath});
+                                </script>
+                            </td>
+                            <td>
                                 <a href="/products/editing?id=${product.id}">Edit</a>
                                 <a href="/products/delete?id=${product.id}">Delete</a>
                             </td>
@@ -47,4 +53,4 @@
             </div>
         </body>
 
-        </html>
+</html>

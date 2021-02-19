@@ -27,11 +27,11 @@ public class Product {
     private Integer cost;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "type")
+    @Column(name = "type",updatable = false)
     private ProductType type;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "brand_id")
+    @JoinColumn(name = "brand_id",updatable = false)
     private Brand brand;
 
     public Product() {

@@ -11,7 +11,7 @@
         <body>
             <div align="center">
                 <h2>New Product</h2>
-                <form:form action="create" method="post" modelAttribute="product">
+                <form:form action="create" method="post" modelAttribute="product" enctype="multipart/form-data" >
                     <table border="0" cellpadding="5">
                         <tr>
                             <td>Name : </td>
@@ -42,6 +42,10 @@
                             <td>
                                 <form:input path="brand" />
                             </td>
+                        </tr>
+                        <tr>
+                            <td>Select a image to upload</td>
+                            <td><input type="file" name="file"/></td>
                         </tr>
                         <tr>
                             <td colspan="2"><input type="submit" value="Save"></td>
