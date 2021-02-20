@@ -51,7 +51,7 @@
                         </tr>
                         <tr>
                             <td>Select a image to upload</td>
-                            <td><input type="file" name="file"/></td>
+                            <td><input type="file" name="file" /></td>
                         </tr>
                         <tr>
                             <td colspan="2"><input type="submit" value="Save"></td>

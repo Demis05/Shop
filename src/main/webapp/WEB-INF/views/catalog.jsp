@@ -1,16 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<!DOCTYPE html>
-<html lang="java">
+        <!DOCTYPE html>
+        <html lang="java">
 
-    <head>
-        <%@ include file="jspf/header.jspf" %>
-        <title>Products</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://sdk.amazonaws.com/js/aws-sdk-2.847.0.min.js"></script>
-        <script src="js/s3Image.js"></script>
-    </head>
+        <head>
+            <%@ include file="jspf/header.jspf" %>
+                <title>Products</title>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+                <script src="https://sdk.amazonaws.com/js/aws-sdk-2.847.0.min.js"></script>
+                <script src="js/s3Image.js"></script>
+        </head>
+
         <body>
             <div align="center">
                 <h2>Products</h2>
@@ -20,7 +21,7 @@
                 </form>
 
                 <h3><a href="/products/creating">New Product</a></h3>
-                <table border="1" cellpadding="5"  height="25"width="40%">
+                <table border="1" cellpadding="5" height="25" width="40%">
                     <tr>
                         <th>ID</th>
                         <th>Title</th>
@@ -40,7 +41,7 @@
                             <td>${product.brand}</td>
                             <td>
                                 <script>
-                                testing(${product.imagePath});
+                                    testing(${ product.imagePath });
                                 </script>
                             </td>
                             <td>
@@ -53,4 +54,4 @@
             </div>
         </body>
 
-</html>
+        </html>
