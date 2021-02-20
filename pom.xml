@@ -123,6 +123,7 @@
                 <version>2.1</version>
                 <configuration>
                     <path>/</path>
+                    <port>8090</port>
                 </configuration>
             </plugin>
         </plugins>
