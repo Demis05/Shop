@@ -7,7 +7,6 @@ import com.exadel.fedorov.service.ProductService;
 import com.exadel.fedorov.service.S3ImageService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,6 +27,7 @@ import java.util.stream.Collectors;
 public class ProductController {
 
     public static final String IMAGE_FOLDER_PATH = "storeFiles/images/";
+    private static final String REDIRECT_CATALOG = "redirect:/products/";
 
     @Autowired
     private ModelMapper modelMapper;
@@ -58,7 +58,9 @@ public class ProductController {
     //GET
     @GetMapping(value = "/search")
     public ModelAndView getProductById(@RequestParam long productId) {
+        System.out.println(productId + "--");
         Product product = productService.getProductById(productId);
+
         List<ProductDto> products = Collections.singletonList(convertToDto(product));
         ModelAndView mav = new ModelAndView("catalog");
         mav.addObject("products", products);
@@ -83,7 +85,7 @@ public class ProductController {
         Product product = convertToDomain(productDto);
         productService.save(product);
         imageService.createImage(product.getId(), file);
-        return "redirect:/products/";
+        return REDIRECT_CATALOG;
     }
 
     //UPDATE
@@ -93,7 +95,7 @@ public class ProductController {
         product.setId(productDto.getId());
         productService.update(product);
         imageService.updateImage(productDto.getId(), file);
-        return "redirect:/products/";
+        return REDIRECT_CATALOG;
     }
 
     //DELETE
@@ -101,7 +103,7 @@ public class ProductController {
     public String deleteCustomerForm(@RequestParam long id) {
         productService.delete(id);
         imageService.deleteImage(id);
-        return "redirect:/products/";
+        return REDIRECT_CATALOG;
     }
 
     private ProductDto convertToDto(Product product) {

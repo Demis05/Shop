@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan("com.exadel.fedorov")
 @Configuration
 public class S3Config {
+
     public static final String ACCESS_KEY_ID = "AKIA35Y2MPKISBLUGXWU";
     public static final String ACCESS_SEC_KEY = "ds9hf5Eib0cS0GWQGcK+AmyJ8b6BxyMDy1uAv7Xh";
 

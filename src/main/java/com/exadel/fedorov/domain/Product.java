@@ -20,18 +20,18 @@ import javax.persistence.Table;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
     private String name;
     private Integer cost;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "type",updatable = false)
+    @Column(name = "type", updatable = false)
     private ProductType type;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "brand_id",updatable = false)
+    @JoinColumn(name = "brand_id", updatable = false)
     private Brand brand;
 
     public Product() {
