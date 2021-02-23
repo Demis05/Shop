@@ -4,14 +4,17 @@ import com.exadel.fedorov.domain.Brand;
 import com.exadel.fedorov.domain.Product;
 import com.exadel.fedorov.dto.ProductDto;
 import com.exadel.fedorov.service.ProductService;
+import com.exadel.fedorov.service.S3ImageService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collections;
@@ -19,15 +22,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+
 @RequestMapping("/products")
 @Controller
 public class ProductController {
+
+    public static final String IMAGE_FOLDER_PATH = "storeFiles/images/";
 
     @Autowired
     private ModelMapper modelMapper;
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private S3ImageService imageService;
 
     //OPEN NEW PAGE
     @GetMapping("/creating")
@@ -70,18 +79,20 @@ public class ProductController {
 
     //CREATE
     @PostMapping(value = "/create")
-    public String createProduct(@ModelAttribute("product") ProductDto productDto) {
+    public String createProduct(@ModelAttribute("product") ProductDto productDto, @RequestParam("file") MultipartFile file) {
         Product product = convertToDomain(productDto);
         productService.save(product);
+        imageService.createImage(product.getId(), file);
         return "redirect:/products/";
     }
 
     //UPDATE
     @PostMapping(value = "/update")
-    public String updateProduct(@ModelAttribute("product") ProductDto productDto) {
+    public String updateProduct(@ModelAttribute("product") ProductDto productDto, @RequestParam("file") MultipartFile file) {
         Product product = convertToDomain(productDto);
         product.setId(productDto.getId());
         productService.update(product);
+        imageService.updateImage(productDto.getId(), file);
         return "redirect:/products/";
     }
 
@@ -89,11 +100,16 @@ public class ProductController {
     @RequestMapping("/delete")
     public String deleteCustomerForm(@RequestParam long id) {
         productService.delete(id);
+        imageService.deleteImage(id);
         return "redirect:/products/";
     }
 
     private ProductDto convertToDto(Product product) {
-        return modelMapper.map(product, ProductDto.class);
+        ProductDto productDto = modelMapper.map(product, ProductDto.class);
+        productDto.setBrand(product.getBrand().getName());
+        String imageName = String.format(IMAGE_FOLDER_PATH + "%d.jpeg", product.getId());
+        productDto.setImagePath(imageName);
+        return productDto;
     }
 
     private Product convertToDomain(ProductDto productDto) {

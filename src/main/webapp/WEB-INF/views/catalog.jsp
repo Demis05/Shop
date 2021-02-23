@@ -1,14 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-
-        <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01
-    Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-        <html>
+        <!DOCTYPE html>
+        <html lang="java">
 
         <head>
             <%@ include file="jspf/header.jspf" %>
                 <title>Products</title>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+                <script src="https://sdk.amazonaws.com/js/aws-sdk-2.847.0.min.js"></script>
+                <script src="js/s3Image.js"></script>
         </head>
 
         <body>
@@ -20,7 +21,7 @@
                 </form>
 
                 <h3><a href="/products/creating">New Product</a></h3>
-                <table border="1" cellpadding="5"  height="25"width="40%">
+                <table border="1" cellpadding="5" height="25" width="40%">
                     <tr>
                         <th>ID</th>
                         <th>Title</th>
@@ -28,6 +29,7 @@
                         <th>Cost</th>
                         <th>Type</th>
                         <th>Brand</th>
+                        <th>Image</th>
                     </tr>
                     <c:forEach items="${products}" var="product">
                         <tr>
@@ -37,6 +39,11 @@
                             <td>${product.cost}</td>
                             <td>${product.type}</td>
                             <td>${product.brand}</td>
+                            <td>
+                                <script>
+                                    testing(${ product.imagePath });
+                                </script>
+                            </td>
                             <td>
                                 <a href="/products/editing?id=${product.id}">Edit</a>
                                 <a href="/products/delete?id=${product.id}">Delete</a>

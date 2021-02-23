@@ -20,6 +20,8 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 public class PersistenceConfig {
 
+    //        dataSource.setUrl("jdbc:postgresql://localhost:5432/shop_db");
+    //        dataSource.setPassword("postgres");
     @Bean(name = "dataSource")
     public DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
