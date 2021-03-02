@@ -20,7 +20,7 @@
             </div>
             <div align="center">
                 <h2>Home page</h2>
-                <h3><a href="/products">Products</a></h3>
+                <h3><a href="/shop/products">Products</a></h3>
             </div>
         </body>
 
