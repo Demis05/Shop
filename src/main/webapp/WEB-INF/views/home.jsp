@@ -6,7 +6,10 @@
         <html>
 
         <head>
-            <%@ include file="jspf/header.jspf" %>
+                    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+                    <script src="/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+                    <script src="/webjars/jquery/3.1.1/jquery.min.js"></script>
+                    <link rel="stylesheet" href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" />
                 <title>Products</title>
         </head>
 
@@ -20,7 +23,7 @@
             </div>
             <div align="center">
                 <h2>Home page</h2>
-                <h3><a href="/products">Products</a></h3>
+                <h3><a href="/shop/products">Products</a></h3>
             </div>
         </body>
 
