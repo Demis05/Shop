@@ -20,7 +20,7 @@
                     <input type="submit" value="Search" />
                 </form>
 
-                <h3><a href="/shop/products/creating">New Product</a></h3>
+                <h3><a href="/products/creating">New Product</a></h3>
                 <table border="1" cellpadding="5" height="25" width="40%">
                     <tr>
                         <th>ID</th>
@@ -45,8 +45,8 @@
                                 </script>
                             </td>
                             <td>
-                                <a href="/shop/products/editing?id=${product.id}">Edit</a>
-                                <a href="/shop/products/delete?id=${product.id}">Delete</a>
+                                <a href="/products/editing?id=${product.id}">Edit</a>
+                                <a href="/products/delete?id=${product.id}">Delete</a>
                             </td>
                         </tr>
                     </c:forEach>

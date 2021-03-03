@@ -22,12 +22,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 
-@RequestMapping("/shop/products")
+@RequestMapping("/products")
 @Controller
 public class ProductController {
 
     public static final String IMAGE_FOLDER_PATH = "storeFiles/images/";
-    private static final String REDIRECT_CATALOG = "redirect:/shop/products/";
+    private static final String REDIRECT_CATALOG = "redirect:/products/";
 
     @Autowired
     private ModelMapper modelMapper;
